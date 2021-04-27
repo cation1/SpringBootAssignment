@@ -6,7 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -17,6 +20,8 @@ import org.springframework.http.ResponseEntity;
 import com.katia.crudMicroService.beans.Person;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+
 class MsCrudControllerIntegrationTest {
 
 	@LocalServerPort
@@ -26,6 +31,7 @@ class MsCrudControllerIntegrationTest {
 	public TestRestTemplate testRestTemplate;
 
 	@Test
+	@Order(1)
 	void testTestGetAllPersons() {
 		List<Person> persons = testRestTemplate.getForObject("http://localhost:" + port + "/persons/get-all-persons",
 				List.class);
@@ -34,6 +40,7 @@ class MsCrudControllerIntegrationTest {
 	}
 
 	@Test
+	@Order(2)
 	void testServiceGetById() {
 		// test existing ID
 		Person person = testRestTemplate.getForObject("http://localhost:" + port + "/persons/find-by-id/1",
@@ -48,6 +55,7 @@ class MsCrudControllerIntegrationTest {
 	}
 
 	@Test
+	@Order(3)
 	void testTestUpdatePerson() {
 		// test existing Person
 		Person person = new Person(1, "bracha", 31.2f, "male", 1.80f, 91.1f, null);
@@ -62,6 +70,7 @@ class MsCrudControllerIntegrationTest {
 	}
 
 	@Test
+	@Order(4)
 	void testTestDeletePerson() {
 		testRestTemplate.delete("http://localhost:" + port + "/persons/delete/2");
 		ResponseEntity<Person> response = testRestTemplate
