@@ -9,15 +9,21 @@ import com.katia.crudMicroService.beans.Person;
 import com.katia.crudMicroService.exeptions.NotExistExeption;
 import com.katia.crudMicroService.repo.PersonRepository;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
+
 public class MicroService1 {
 
 	private final PersonRepository personRepository;
 	
 	public Person addPerson (Person person){
-		return personRepository.save(person);
+		try {
+			return personRepository.save(person);
+		} catch (IllegalArgumentException e) {
+			return null;
+		}
 	}
 	public Person getSinglePerson(long id) throws NotExistExeption {
 		return personRepository.findById(id);

@@ -1,7 +1,6 @@
 package com.springBootAssighment2.service2.service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -20,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class MicroService2 {
     
 	final static String uri = "http://localhost:8080/persons/get-all-persons";
-
+	
 	public List<Person> getAllPersons()
 	{	 
 	    RestTemplate restTemplate = new RestTemplate();	 

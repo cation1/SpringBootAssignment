@@ -29,18 +29,20 @@ public class MicroServiceTesting implements CommandLineRunner{
 		microService1.addPerson(p2);
 		microService1.addPerson(p3);
 		microService1.addPerson(p4);
-		System.out.println("_________get one person_______________");
-		System.out.println(microService1.getSinglePerson(3));
-		System.out.println("_________get all persons________________");
-		System.out.println(microService1.getAllPersons());
-		p4.setWeight(6.1f);
-		System.out.println("_______get one after update_______________");
-		microService1.updatePerson(p4);
-		System.out.println(microService1.getSinglePerson(4));
-		System.out.println("________delete one and get all_______________");
-		microService1.deletePerson(4);
-		System.out.println(microService1.getAllPersons());
-		microService1.getSinglePerson(1);
+		
+		microService1.addPerson(null);
+//		System.out.println("_________get one person_______________");
+//		System.out.println(microService1.getSinglePerson(3));
+//		System.out.println("_________get all persons________________");
+//		System.out.println(microService1.getAllPersons());
+//		p4.setWeight(6.1f);
+//		System.out.println("_______get one after update_______________");
+//		microService1.updatePerson(p4);
+//		System.out.println(microService1.getSinglePerson(4));
+//		System.out.println("________delete one and get all_______________");
+//		microService1.deletePerson(4);
+//		System.out.println(microService1.getAllPersons());
+//		microService1.getSinglePerson(1);
 		
 	}
 

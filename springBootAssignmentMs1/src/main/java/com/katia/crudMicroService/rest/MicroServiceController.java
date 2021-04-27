@@ -26,11 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class MicroServiceController {
 
 	private final MicroService1 microService1;
-	
-	@PostMapping("add")
-	public void addPerson(@RequestBody Person person) {
-		microService1.addPerson(person);
-	}
+
 	@GetMapping("find-by-id/{id}")
 	public Person getOnePerson(@PathVariable(name = "id") long id) throws NotExistExeption {
 		Person person = microService1.getSinglePerson(id);
@@ -39,41 +35,34 @@ public class MicroServiceController {
 		}
 		return person;
 	}
-	
+
 	@GetMapping("get-all-persons")
 	public List<Person> getAllPersons() {
 		return microService1.getAllPersons();
 	}
-	
+
+	@PostMapping("add")
+	public void addPerson(@RequestBody Person person) {
+		microService1.addPerson(person);
+	}
+
 	@DeleteMapping("delete/{id}")
 	public ResponseEntity<?> deletePerson(@PathVariable long id) throws NotExistExeption {
 		Person person = microService1.getSinglePerson(id);
-		if(person == null) {
+		if (person == null) {
 			throw new NotExistExeption("not exist, nothing to delete");
 		}
 		microService1.deletePerson(id);
-		return new ResponseEntity<String>("the person with id " + id + " deleted succesfully" ,HttpStatus.OK);
+		return new ResponseEntity<String>("the person with id " + id + " deleted succesfully", HttpStatus.OK);
 	}
-	
-	@PostMapping("/persons")
-	public ResponseEntity<?> createPerson(@RequestBody Person person) {
-		Person savedPerson = microService1.addPerson(person);
-//
-//		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-//				.buildAndExpand(savedPerson.getId()).toUri();
-		
-		//return ResponseEntity.created(location).build();
-		return new ResponseEntity<String>("The Person Created", HttpStatus.OK);
-	}
-	
+
 	@PutMapping("update")
-	public ResponseEntity<?> updatePerson(@RequestBody Person person) throws NotExistExeption{
-		if(microService1.getSinglePerson(person.getId()) == null){
+	public ResponseEntity<?> updatePerson(@RequestBody Person person) throws NotExistExeption {
+		if (microService1.getSinglePerson(person.getId()) == null) {
 			throw new NotExistExeption("the person is not exist");
 		}
 		microService1.updatePerson(person);
 		return new ResponseEntity<String>("The Person Updated", HttpStatus.OK);
 	}
-	
 
 }
